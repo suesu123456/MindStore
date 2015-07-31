@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		415D835218CB8FA7160803C8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2868DBF24A994AA68E9B6360 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		8022FFFF1B65D3F0001C6897 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8022FFFE1B65D3F0001C6897 /* LeftViewController.swift */; };
+		804016021B65E9A50051882B /* VoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804016011B65E9A50051882B /* VoteViewController.swift */; };
+		804016041B6604950051882B /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804016031B6604950051882B /* UIViewExtension.swift */; };
+		804016071B660BC60051882B /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804016061B660BC60051882B /* UserModel.swift */; };
+		804016091B660D720051882B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804016081B660D720051882B /* LoginViewController.swift */; };
 		8052507A1B60D3CC008CBB9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805250791B60D3CC008CBB9A /* AppDelegate.swift */; };
 		8052507C1B60D3CC008CBB9A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8052507B1B60D3CC008CBB9A /* HomeViewController.swift */; };
 		8052507F1B60D3CC008CBB9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8052507D1B60D3CC008CBB9A /* Main.storyboard */; };
@@ -21,6 +26,14 @@
 		807284931B620A0300E9D6C6 /* UILableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807284921B620A0300E9D6C6 /* UILableExtension.swift */; };
 		807284961B621E0F00E9D6C6 /* IndexCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807284951B621E0F00E9D6C6 /* IndexCell.swift */; };
 		807284991B623B6100E9D6C6 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807284981B623B6100E9D6C6 /* DateHelper.swift */; };
+		8088131A1B68EB4A003A2391 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 808813101B68EB4A003A2391 /* FMDatabase.m */; };
+		8088131B1B68EB4A003A2391 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 808813121B68EB4A003A2391 /* FMDatabaseAdditions.m */; };
+		8088131C1B68EB4A003A2391 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 808813141B68EB4A003A2391 /* FMDatabasePool.m */; };
+		8088131D1B68EB4A003A2391 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 808813161B68EB4A003A2391 /* FMDatabaseQueue.m */; };
+		8088131E1B68EB4A003A2391 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 808813191B68EB4A003A2391 /* FMResultSet.m */; };
+		808813201B6902AC003A2391 /* MindModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8088131F1B6902AC003A2391 /* MindModel.swift */; };
+		808813221B69BA4B003A2391 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 808813211B69BA4B003A2391 /* libsqlite3.dylib */; };
+		8099C8771B68D3AE00EF1A28 /* SqlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8099C8761B68D3AE00EF1A28 /* SqlHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +49,11 @@
 /* Begin PBXFileReference section */
 		2868DBF24A994AA68E9B6360 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DF5264B41931556057AB455 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		8022FFFE1B65D3F0001C6897 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
+		804016011B65E9A50051882B /* VoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteViewController.swift; sourceTree = "<group>"; };
+		804016031B6604950051882B /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		804016061B660BC60051882B /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		804016081B660D720051882B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		805250741B60D3CC008CBB9A /* MindStores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindStores.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		805250781B60D3CC008CBB9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		805250791B60D3CC008CBB9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +72,20 @@
 		807284921B620A0300E9D6C6 /* UILableExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILableExtension.swift; sourceTree = "<group>"; };
 		807284951B621E0F00E9D6C6 /* IndexCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexCell.swift; sourceTree = "<group>"; };
 		807284981B623B6100E9D6C6 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		8088130F1B68EB4A003A2391 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		808813101B68EB4A003A2391 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		808813111B68EB4A003A2391 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		808813121B68EB4A003A2391 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		808813131B68EB4A003A2391 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		808813141B68EB4A003A2391 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		808813151B68EB4A003A2391 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		808813161B68EB4A003A2391 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		808813171B68EB4A003A2391 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		808813181B68EB4A003A2391 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		808813191B68EB4A003A2391 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		8088131F1B6902AC003A2391 /* MindModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindModel.swift; sourceTree = "<group>"; };
+		808813211B69BA4B003A2391 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		8099C8761B68D3AE00EF1A28 /* SqlHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqlHelper.swift; sourceTree = "<group>"; };
 		FD9DE5238E81A631A8AEDE8D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				808813221B69BA4B003A2391 /* libsqlite3.dylib in Frameworks */,
 				415D835218CB8FA7160803C8 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,9 +112,31 @@
 		2B2F306E5235D0FA511F08C8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				808813211B69BA4B003A2391 /* libsqlite3.dylib */,
 				2868DBF24A994AA68E9B6360 /* Pods.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8022FFFD1B65D3B2001C6897 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8052507B1B60D3CC008CBB9A /* HomeViewController.swift */,
+				806AD8331B60D5670080B779 /* SideViewController.swift */,
+				8022FFFE1B65D3F0001C6897 /* LeftViewController.swift */,
+				804016011B65E9A50051882B /* VoteViewController.swift */,
+				804016081B660D720051882B /* LoginViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		804016051B660BB70051882B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				804016061B660BC60051882B /* UserModel.swift */,
+				8088131F1B6902AC003A2391 /* MindModel.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		8052506B1B60D3CC008CBB9A = {
@@ -107,20 +162,16 @@
 		805250761B60D3CC008CBB9A /* MindStores */ = {
 			isa = PBXGroup;
 			children = (
+				8088130D1B68EA17003A2391 /* Utils */,
+				804016051B660BB70051882B /* Model */,
+				8022FFFD1B65D3B2001C6897 /* Controller */,
 				807284971B623B5200E9D6C6 /* Helper */,
 				807284941B621DD700E9D6C6 /* Custom */,
 				805250791B60D3CC008CBB9A /* AppDelegate.swift */,
-				8052507B1B60D3CC008CBB9A /* HomeViewController.swift */,
 				8052507D1B60D3CC008CBB9A /* Main.storyboard */,
 				805250801B60D3CC008CBB9A /* Images.xcassets */,
 				805250821B60D3CC008CBB9A /* LaunchScreen.xib */,
 				805250771B60D3CC008CBB9A /* Supporting Files */,
-				806AD8311B60D5330080B779 /* SwiftColors.swift */,
-				806AD8331B60D5670080B779 /* SideViewController.swift */,
-				806AD8351B60D6170080B779 /* Common.swift */,
-				806AD8371B60D6430080B779 /* ApiManager.swift */,
-				807284911B61EF8A00E9D6C6 /* BridgeHeader.h */,
-				807284921B620A0300E9D6C6 /* UILableExtension.swift */,
 			);
 			path = MindStores;
 			sourceTree = "<group>";
@@ -153,7 +204,9 @@
 		807284941B621DD700E9D6C6 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				807284921B620A0300E9D6C6 /* UILableExtension.swift */,
 				807284951B621E0F00E9D6C6 /* IndexCell.swift */,
+				804016031B6604950051882B /* UIViewExtension.swift */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -161,9 +214,40 @@
 		807284971B623B5200E9D6C6 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				806AD8371B60D6430080B779 /* ApiManager.swift */,
+				806AD8311B60D5330080B779 /* SwiftColors.swift */,
+				807284911B61EF8A00E9D6C6 /* BridgeHeader.h */,
+				806AD8351B60D6170080B779 /* Common.swift */,
 				807284981B623B6100E9D6C6 /* DateHelper.swift */,
+				8099C8761B68D3AE00EF1A28 /* SqlHelper.swift */,
 			);
 			name = Helper;
+			sourceTree = "<group>";
+		};
+		8088130D1B68EA17003A2391 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				8088130E1B68EA37003A2391 /* FMDB */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		8088130E1B68EA37003A2391 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				8088130F1B68EB4A003A2391 /* FMDatabase.h */,
+				808813101B68EB4A003A2391 /* FMDatabase.m */,
+				808813111B68EB4A003A2391 /* FMDatabaseAdditions.h */,
+				808813121B68EB4A003A2391 /* FMDatabaseAdditions.m */,
+				808813131B68EB4A003A2391 /* FMDatabasePool.h */,
+				808813141B68EB4A003A2391 /* FMDatabasePool.m */,
+				808813151B68EB4A003A2391 /* FMDatabaseQueue.h */,
+				808813161B68EB4A003A2391 /* FMDatabaseQueue.m */,
+				808813171B68EB4A003A2391 /* FMDB.h */,
+				808813181B68EB4A003A2391 /* FMResultSet.h */,
+				808813191B68EB4A003A2391 /* FMResultSet.m */,
+			);
+			name = FMDB;
 			sourceTree = "<group>";
 		};
 		D5A56AB80A1327A98A878038 /* Pods */ = {
@@ -326,15 +410,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				804016091B660D720051882B /* LoginViewController.swift in Sources */,
 				8052507C1B60D3CC008CBB9A /* HomeViewController.swift in Sources */,
+				8099C8771B68D3AE00EF1A28 /* SqlHelper.swift in Sources */,
 				8052507A1B60D3CC008CBB9A /* AppDelegate.swift in Sources */,
+				8088131B1B68EB4A003A2391 /* FMDatabaseAdditions.m in Sources */,
+				808813201B6902AC003A2391 /* MindModel.swift in Sources */,
 				807284961B621E0F00E9D6C6 /* IndexCell.swift in Sources */,
+				8022FFFF1B65D3F0001C6897 /* LeftViewController.swift in Sources */,
 				806AD8321B60D5330080B779 /* SwiftColors.swift in Sources */,
+				804016071B660BC60051882B /* UserModel.swift in Sources */,
+				8088131D1B68EB4A003A2391 /* FMDatabaseQueue.m in Sources */,
 				806AD8361B60D6170080B779 /* Common.swift in Sources */,
+				804016041B6604950051882B /* UIViewExtension.swift in Sources */,
 				806AD8381B60D6430080B779 /* ApiManager.swift in Sources */,
+				804016021B65E9A50051882B /* VoteViewController.swift in Sources */,
+				8088131E1B68EB4A003A2391 /* FMResultSet.m in Sources */,
+				8088131C1B68EB4A003A2391 /* FMDatabasePool.m in Sources */,
 				807284991B623B6100E9D6C6 /* DateHelper.swift in Sources */,
 				806AD8341B60D5670080B779 /* SideViewController.swift in Sources */,
 				807284931B620A0300E9D6C6 /* UILableExtension.swift in Sources */,
+				8088131A1B68EB4A003A2391 /* FMDatabase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,23 +10,39 @@ import UIKit
 
 class SideViewController: UIViewController {
     
+    var homeNavigationController: UINavigationController!
     var homeViewController: HomeViewController!
+    var leftViewController: LeftViewController!
+    
     var distance:CGFloat = 0
     
     let FullDistance: CGFloat = 0.78
     let Proportion: CGFloat = 0.77
+    var centerOfLeftViewAtBeginning: CGPoint!
+    var proportionOfLeftView: CGFloat = 1
+    var distanceOfLeftView: CGFloat = 50
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initNav()
+        //initNav()
         //给主视图设置背景
         let imageView = UIImageView(image: UIImage(named: "back"))
         imageView.frame = UIScreen.mainScreen().bounds
         self.view.addSubview(imageView)
+        //取出LeftViewController.view
+        leftViewController = LeftViewController()
+        leftViewController.view.center = CGPointMake(leftViewController.view.center.x - 50, leftViewController.view.center.y)
+        leftViewController.view.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.8, 0.8)
+        centerOfLeftViewAtBeginning = leftViewController.view.center
+        self.view.addSubview(leftViewController.view)
+
         //找到HomeViewController的view ,放在背景视图上面
         homeViewController = HomeViewController()
-        self.addChildViewController(homeViewController)
+        homeNavigationController = UINavigationController(rootViewController: homeViewController)
+        homeViewController = homeNavigationController.viewControllers.first as! HomeViewController
         self.view.addSubview(homeViewController.view)
+        self.view.addSubview(homeViewController.navigationController!.view)
+        
         //绑定UIPanGestureRecognizer
         homeViewController.panGesture.addTarget(self, action:Selector("pan:"))
         
@@ -57,12 +73,15 @@ class SideViewController: UIViewController {
     
     func pan(recongnizer: UIPanGestureRecognizer) {
         let x = recongnizer.translationInView(self.view).x
-        let trueDistance = distance + x //实时距离
-        // 如果UIPanGestureRecognizer结束，则激活自动停靠
+        let trueDistance = distance + x // 实时距离
+        let trueProportion = trueDistance / (Common.screenWidth*FullDistance)
+        
+        // 如果 UIPanGestureRecognizer 结束，则激活自动停靠
         if recongnizer.state == UIGestureRecognizerState.Ended {
+            
             if trueDistance > Common.screenWidth * (Proportion / 3) {
                 showLeft()
-            }else if trueDistance < Common.screenWidth * -(Proportion / 3) {
+            } else if trueDistance < Common.screenWidth * -(Proportion / 3) {
                 showRight()
             } else {
                 showHome()
@@ -70,11 +89,12 @@ class SideViewController: UIViewController {
             
             return
         }
+        
         // 计算缩放比例
         var proportion: CGFloat = recongnizer.view!.frame.origin.x >= 0 ? -1 : 1
         proportion *= trueDistance / Common.screenWidth
         proportion *= 1 - Proportion
-        proportion /= 0.6
+        proportion /= FullDistance + Proportion/2 - 0.5
         proportion += 1
         if proportion <= Proportion { // 若比例已经达到最小，则不再继续动画
             return
@@ -82,6 +102,11 @@ class SideViewController: UIViewController {
         // 执行平移和缩放动画
         recongnizer.view!.center = CGPointMake(self.view.center.x + trueDistance, self.view.center.y)
         recongnizer.view!.transform = CGAffineTransformScale(CGAffineTransformIdentity, proportion, proportion)
+        
+        // 执行左视图动画
+        let pro = 0.8 + (proportionOfLeftView - 0.8) * trueProportion
+        leftViewController.view.center = CGPointMake(centerOfLeftViewAtBeginning.x + distanceOfLeftView * trueProportion, centerOfLeftViewAtBeginning.y - (proportionOfLeftView - 1) * leftViewController.view.frame.height * trueProportion / 2 )
+        leftViewController.view.transform = CGAffineTransformScale(CGAffineTransformIdentity, pro, pro)
         
     }
     // 封装三个方法，便于后期调用

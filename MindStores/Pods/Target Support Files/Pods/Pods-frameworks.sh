@@ -53,11 +53,15 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods/Alamofire.framework'
+  install_framework 'Pods/JDStatusBarNotification.framework'
+  install_framework 'Pods/MBProgressHUD.framework'
   install_framework 'Pods/ReachabilitySwift.framework'
   install_framework 'Pods/SDWebImage.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods/Alamofire.framework'
+  install_framework 'Pods/JDStatusBarNotification.framework'
+  install_framework 'Pods/MBProgressHUD.framework'
   install_framework 'Pods/ReachabilitySwift.framework'
   install_framework 'Pods/SDWebImage.framework'
 fi

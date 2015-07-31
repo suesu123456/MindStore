@@ -15,8 +15,11 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
     var refreshControl: UIRefreshControl!
     var infiniteScrollingView: UIView!
 
-    var resultObjects: [[NSDictionary]]!
-    
+    var resultObjects: [[MindModel]]!
+    var dictModel: [MindModel]!
+    var sqlHelper: SqlHelper!
+    var urlCu: (String,String)!
+    var loadMoreEnabled: Bool = true
     var refreshing: Bool = false {
         didSet {
             if (self.refreshing) {
@@ -32,39 +35,112 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
             }
         }
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initNav()
+        sqlHelper = SqlHelper()
+        self.initViews()
+        
+        //不管有没有网络，先去请求本地的
+        self.resultObjects = Array()
+        self.initData()
+        urlCu = ("","")
+        self.netWork("")
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.view.endEditing(true)
+    }
+    
+    func initNav() {
+        
+        var leftBtn = UIBarButtonItem(image: UIImage(named:"mindstore"), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        leftBtn.tintColor = UIColor(hexString: "#39C0C0")
+        self.navigationItem.leftBarButtonItem = leftBtn
+        //搜索框
+        var searchField: UITextField = UITextField(frame: CGRectMake(Common.screenWidth/3, 10, 120, 25))
+        searchField.backgroundColor = UIColor.clearColor()
+        searchField.placeholder = "搜索"
+        searchField.textColor = UIColor(hexString: "#B4B4B4")
+        searchField.font = UIFont.boldSystemFontOfSize(12)
+        searchField.borderStyle = UITextBorderStyle.RoundedRect
+        self.navigationItem.titleView = searchField
+        var rightBtn = UIBarButtonItem (barButtonSystemItem: UIBarButtonSystemItem.Add, target: nil, action: "add")
+        self.navigationItem.rightBarButtonItem = rightBtn
+        //self.navigationController!.hidesBarsOnSwipe = true;
+    }
+    
+    func initViews() {
         self.view.backgroundColor = UIColor.whiteColor()
+        self.automaticallyAdjustsScrollViewInsets = false
         panGesture = UIPanGestureRecognizer()
         //        panGesture.delegate = self
         panGesture.minimumNumberOfTouches = 1;
         panGesture.maximumNumberOfTouches = 1;
         self.view.addGestureRecognizer(panGesture)
         // 创建tableView
-        tableView = UITableView(frame: CGRectMake(0, 80, Common.screenWidth, Common.screenHeight))
+        tableView = UITableView(frame: CGRectMake(0, 0, Common.screenWidth, Common.screenHeight))
         tableView.delegate = self
         tableView.dataSource = self
-        self.view.addSubview(tableView)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100.0
+        self.view.addSubview(tableView)
         //添加下拉刷新 上拉加载
         self.refreshControl = UIRefreshControl()
         self.refreshControl.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl!)
         self.setupInfiniteScrollingView()
         
-        //请求测试
-        ApiManager.sharedInstance.mindAll("", andClosure: { (result) -> () in
-            //异步去转换数组
-            self.convertArray(result["objects"] as! [NSDictionary])
-        }) { (error) -> () in
-            println(error)
+    }
+    
+    func initData() {
+        var datas : [MindModel] =  self.sqlHelper.hasMindData()
+        if datas.count > 0 {
+            self.convertArray(datas)
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func netWork (str: String) {
+        self.refreshing = false
+        self.loadMoreEnabled = false
+        //请求测试
+        ApiManager.sharedInstance.mindAll(str, andClosure: { (result) -> () in
+            var meta: NSDictionary = result["meta"] as! NSDictionary
+            
+            if !meta["previous"]!.isKindOfClass(NSNull) {
+                self.urlCu.0 = meta["previous"] as! String
+            }
+            
+            if !meta["next"]!.isKindOfClass(NSNull) {
+                self.urlCu.1 = meta["next"] as! String
+            }
+            
+            //异步去转换为对象
+            self.convertToModel(result["objects"] as! [NSDictionary])
+            //更新缓存
+            self.sqlHelper.insertAll(self.dictModel)
+            self.refreshing = true
+            self.loadMoreEnabled = true
+            }) { (error) -> () in
+                println(error)
+                return
+        }
+    }
+    
+
+    
+    func add() {
+        //判断登录状态
+        if UserModel.isLogin() {
+        
+        }else{
+            
+            
+        }
+        
     }
     
     //tableView datasource
@@ -76,8 +152,8 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
         if self.resultObjects == nil {
             return ""
         }
-        var dicta: NSDictionary = self.resultObjects[section][0]
-        var timeTemp: String = dicta["created_at"]!.description
+        var dicta: MindModel = self.resultObjects[section][0]
+        var timeTemp: String = dicta.created_at.description
         var timeStr: String = DateHelper().formatToStr(timeTemp)
         return timeStr
     }
@@ -86,17 +162,14 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
         
         var timeStr = ""
         if self.resultObjects != nil {
-            var dicta: NSDictionary = self.resultObjects[section][0]
-            var timeTemp: String = dicta["created_at"]!.description
+            var dicta: MindModel = self.resultObjects[section][0]
+            var timeTemp: String = dicta.created_at.description
             var timeStr: String = DateHelper().formatToStr(timeTemp)
             var atrStr: NSMutableAttributedString = NSMutableAttributedString(string: timeStr)
-            atrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor.blackColor(), range: NSMakeRange(0, 4))
-//            atrStr.addAttribute(NSForegroundColorAttributeName, value: UIFont.boldSystemFontOfSize(14), range: NSMakeRange(0, 4))
-            atrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor(hexString: "#CACACA")!, range: NSMakeRange(4, 6))
-//            atrStr.addAttribute(NSForegroundColorAttributeName, value: UIFont.boldSystemFontOfSize(10), range: NSMakeRange(5, 6))
+          //  atrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor.blackColor(), range: NSMakeRange(0, 4))
+          //  atrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor(hexString: "#CACACA")!, range: NSMakeRange(4, 6))
             var label:UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView;
             label.textLabel.attributedText = atrStr
-
         }
     }
     
@@ -109,19 +182,14 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
         if cell == nil {
             cell = IndexCell(style: UITableViewCellStyle.Default, reuseIdentifier: "table")
         }
-        //当下拉到底部，执行loadMore()
-        if (refreshing && indexPath.row == 2) {
-            self.tableView.tableFooterView = self.infiniteScrollingView
-            loadMore()
-        }
         // 填充tableView
         if(self.resultObjects != nil){
             var dic1 = self.resultObjects[indexPath.section][indexPath.row]
-            var dic2 = dic1["created_by"]as! NSDictionary
-            var imageUrl = dic2["lime_avatar_url"]as! String
-            var title = dic1["title"]as! String
-            var counts = dic1["vote_count"]as! Int
-            var tagline = dic1["tagline"]as! String
+            var dic2 = dic1.created_by
+            var imageUrl = "http://tp2.sinaimg.cn/1642881017/180/22887240315/1"//dic2["lime_avatar_url"]as! String
+            var title = dic1.title
+            var counts = dic1.vote_count
+            var tagline = dic1.tagline
             
             cell.imageViews!.sd_setImageWithURL(NSURL(string: imageUrl), placeholderImage: UIImage(named: "ava"))
             
@@ -140,9 +208,15 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
         // tableView Delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    
+        var vote = VoteViewController()
+//        SideViewController().removeFromParentViewController()
+        self.navigationController!.pushViewController(vote, animated: true)
     }
-    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.frame.size.height {
+            self.loadMore()
+        }
+    }
     //上拉加载
     private func setupInfiniteScrollingView() {
         self.infiniteScrollingView = UIView(frame: CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, 60))
@@ -156,31 +230,29 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
     
     }
     //下拉获取数据
-    func onPullToFresh() {
-        
-//        fetchDataFromServer()
+    func onPullToRefresh() {
+           self.netWork("")
     }
     func loadMore(){
-        println("loadMore")
-//        self.data = self.data.arrayByAddingObjectsFromArray(self.newData as! [String])
-        self.tableView.reloadData()
+        if loadMoreEnabled {
+            self.netWork(self.urlCu.1)
+        }
     }
     // 转换为二维数组，按天来划分
-    func convertArray (dict: [NSDictionary]) {
-        self.resultObjects = Array()
-        var arrayTemp: [NSDictionary] = Array()
+    func convertArray (dict: [MindModel]) {
+        var arrayTemp: [MindModel] = Array()
         arrayTemp.append(dict.first!)
-        var dicta: NSDictionary = arrayTemp[0]
-        var timeTemp: String = dicta["created_at"]!.description
+        var dicta: MindModel = arrayTemp[0]
+        var timeTemp: String = dicta.created_at.description
         for var i = 1; i<dict.count; i++ {
-            var json = dict[i]
-            if (DateHelper().isSameDay(timeTemp, stamp2: json["created_at"]!.description)) { //判断是否为同一天
+            var json: MindModel = dict[i]
+            if (DateHelper().isSameDay(timeTemp, stamp2: json.created_at.description)) { //判断是否为同一天
                 arrayTemp.append(json)
             }else{
                 self.resultObjects.append(arrayTemp)
                 arrayTemp = Array()
                 arrayTemp.append(json)
-                timeTemp = json["created_at"]!.description
+                timeTemp = json.created_at.description
             }
             if i == dict.count-1 {
                 self.resultObjects.append(arrayTemp)
@@ -188,6 +260,14 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
         }
         self.tableView.reloadData()
     }
-
+    func convertToModel(dict: [NSDictionary]) {
+        self.dictModel = Array()
+        for a1 in dict {
+            var mind = MindModel()
+            mind.set(a1)
+            self.dictModel.append(mind)
+        }
+        self.convertArray(self.dictModel)
+    }
 }
 

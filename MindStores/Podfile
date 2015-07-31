@@ -6,3 +6,5 @@ use_frameworks!
 pod 'ReachabilitySwift', git: 'https://github.com/ashleymills/Reachability.swift'
 use_frameworks!
 pod 'SDWebImage', '~> 3.7.3'
+pod 'JDStatusBarNotification', '~> 1.5.2'
+pod 'MBProgressHUD', '~> 0.9.1'

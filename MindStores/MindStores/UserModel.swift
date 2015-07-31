@@ -7,3 +7,17 @@
 //
 
 import Foundation
+
+class UserModel: NSObject {
+    
+    
+   static func isLogin() -> Bool {
+     
+        var loginStatus: AnyObject? = NSUserDefaults.standardUserDefaults().objectForKey("login_status")
+        if loginStatus!.boolValue! {
+            return true
+        }else{
+            return false
+        }
+    }
+}

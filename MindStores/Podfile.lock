@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (1.2.3)
+  - JDStatusBarNotification (1.5.2)
+  - MBProgressHUD (0.9.1)
   - ReachabilitySwift (1.1)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
@@ -7,6 +9,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 1.2.3)
+  - JDStatusBarNotification (~> 1.5.2)
+  - MBProgressHUD (~> 0.9.1)
   - ReachabilitySwift (from `https://github.com/ashleymills/Reachability.swift`)
   - SDWebImage (~> 3.7.3)
 
@@ -21,6 +25,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 5550bf0b575ed1a4bf9be572f9463e1015cc169e
+  JDStatusBarNotification: a36d09ccbb047217572b074a61e7ca10dddc5f0a
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   ReachabilitySwift: 1e53abddb01111deac0d229dabdb8bb043567b18
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
 

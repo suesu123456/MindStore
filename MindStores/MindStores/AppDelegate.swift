@@ -20,22 +20,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.makeKeyAndVisible()
         //自定义导航栏
         var rootView:SideViewController = SideViewController()
-        let nav = UINavigationController(rootViewController: rootView)
-        self.window!.rootViewController = nav
+//        let nav = UINavigationController(rootViewController: rootView)
+        self.window!.rootViewController = rootView
         // 全局设置 navigation bar 为透明
         var navigationBarAppearace = UINavigationBar.appearance()
         navigationBarAppearace.backgroundColor = UIColor.whiteColor()
 //        navigationBarAppearace.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
 //        navigationBarAppearace.shadowImage = UIImage()
 //        navigationBarAppearace.translucent = true
-        
-        //设置字体
-//        var textAttributes:NSDictionary = [
-//            NSFontAttributeName: UIFont.boldSystemFontOfSize(12), //字体大小
-//            NSForegroundColorAttributeName: UIColor(hexString: "#B4B4B4") //字体颜色
-//        ]
-//        navigationBarAppearace.titleTextAttributes = textAttributes as [NSObject : AnyObject]
-        
+    
+        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(0, -60), forBarMetrics: UIBarMetrics.Default)
         return true
     }
 

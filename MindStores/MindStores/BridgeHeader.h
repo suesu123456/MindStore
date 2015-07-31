@@ -10,4 +10,8 @@
 #define MindStores_BridgeHeader_h
 
 #import <SDWebImage/UIImageView+WebCache.h>
+//#import <sqlite3.h>
+#import "FMDB.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <JDStatusBarNotification/JDStatusBarNotification.h>
 #endif

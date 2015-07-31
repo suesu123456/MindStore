@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JDStatusBarNotification.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,7 +42,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5C159B56DD5A7C840830EC2754304A44</key>
+		<key>12003F4197D668C2C54CFA7519FA8FB9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>34ABA5F6E5D7DDF84D407452AFA5C85F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,7 +57,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A1AA0C7E8C4A32017862EF6BE93C8077</key>
+		<key>A7CDF710F96D624584C71A8A0D3D2EF5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BDC474A7DFAF158465A33A1A0524F2D0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
