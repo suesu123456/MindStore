@@ -46,10 +46,10 @@ class LeftViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if indexPath.row == 2 {
             cell.textLabel?.text = "FAQ"
         }
-        cell.textLabel?.textColor = UIColor.blackColor()
+        cell.textLabel?.textColor = UIColor.whiteColor()
         cell.backgroundColor = UIColor.clearColor()
         cell.textLabel!.textAlignment = NSTextAlignment.Center
-        cell.textLabel!.font = UIFont.systemFontOfSize(14)
+        cell.textLabel!.font = UIFont.systemFontOfSize(20)
         return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

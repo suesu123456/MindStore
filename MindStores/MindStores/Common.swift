@@ -10,5 +10,10 @@ import UIKit
 
 struct Common {
     static let screenWidth = UIScreen.mainScreen().bounds.maxX
-    static let screenHeight = UIScreen.mainScreen().bounds.maxY
+    static let screenHeight = UIScreen.mainScreen().bounds.maxY - 64
+    static func frame() -> CGRect{
+        var frame: CGRect = UIScreen.mainScreen().bounds
+        frame.size.height -= (20+44);//减去状态栏、导航栏的高度
+        return frame;
+    }
 }

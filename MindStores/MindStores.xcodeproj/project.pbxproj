@@ -23,6 +23,8 @@
 		806AD8341B60D5670080B779 /* SideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AD8331B60D5670080B779 /* SideViewController.swift */; };
 		806AD8361B60D6170080B779 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AD8351B60D6170080B779 /* Common.swift */; };
 		806AD8381B60D6430080B779 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AD8371B60D6430080B779 /* ApiManager.swift */; };
+		806E29D81B6B23C400C2670C /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E29D71B6B23C400C2670C /* AvatarView.swift */; };
+		806E29DA1B6B5D2200C2670C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E29D91B6B5D2200C2670C /* WebViewController.swift */; };
 		807284931B620A0300E9D6C6 /* UILableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807284921B620A0300E9D6C6 /* UILableExtension.swift */; };
 		807284961B621E0F00E9D6C6 /* IndexCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807284951B621E0F00E9D6C6 /* IndexCell.swift */; };
 		807284991B623B6100E9D6C6 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807284981B623B6100E9D6C6 /* DateHelper.swift */; };
@@ -68,6 +70,8 @@
 		806AD8331B60D5670080B779 /* SideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideViewController.swift; sourceTree = "<group>"; };
 		806AD8351B60D6170080B779 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		806AD8371B60D6430080B779 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		806E29D71B6B23C400C2670C /* AvatarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		806E29D91B6B5D2200C2670C /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		807284911B61EF8A00E9D6C6 /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		807284921B620A0300E9D6C6 /* UILableExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILableExtension.swift; sourceTree = "<group>"; };
 		807284951B621E0F00E9D6C6 /* IndexCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexCell.swift; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 				8022FFFE1B65D3F0001C6897 /* LeftViewController.swift */,
 				804016011B65E9A50051882B /* VoteViewController.swift */,
 				804016081B660D720051882B /* LoginViewController.swift */,
+				806E29D91B6B5D2200C2670C /* WebViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 				807284921B620A0300E9D6C6 /* UILableExtension.swift */,
 				807284951B621E0F00E9D6C6 /* IndexCell.swift */,
 				804016031B6604950051882B /* UIViewExtension.swift */,
+				806E29D71B6B23C400C2670C /* AvatarView.swift */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -419,10 +425,12 @@
 				807284961B621E0F00E9D6C6 /* IndexCell.swift in Sources */,
 				8022FFFF1B65D3F0001C6897 /* LeftViewController.swift in Sources */,
 				806AD8321B60D5330080B779 /* SwiftColors.swift in Sources */,
+				806E29D81B6B23C400C2670C /* AvatarView.swift in Sources */,
 				804016071B660BC60051882B /* UserModel.swift in Sources */,
 				8088131D1B68EB4A003A2391 /* FMDatabaseQueue.m in Sources */,
 				806AD8361B60D6170080B779 /* Common.swift in Sources */,
 				804016041B6604950051882B /* UIViewExtension.swift in Sources */,
+				806E29DA1B6B5D2200C2670C /* WebViewController.swift in Sources */,
 				806AD8381B60D6430080B779 /* ApiManager.swift in Sources */,
 				804016021B65E9A50051882B /* VoteViewController.swift in Sources */,
 				8088131E1B68EB4A003A2391 /* FMResultSet.m in Sources */,

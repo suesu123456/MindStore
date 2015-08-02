@@ -23,20 +23,22 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
     var refreshing: Bool = false {
         didSet {
             if (self.refreshing) {
-                self.refreshControl?.beginRefreshing()
-                self.refreshControl?.attributedTitle = NSAttributedString(string: "Loading...")
+                self.refreshControl!.beginRefreshing()
+                println(self.refreshControl)
+                self.refreshControl!.attributedTitle = NSAttributedString(string: "Loading...")
+                self.onPullToRefresh()
                 println("Loading...")
             }
             else {
-                
-                self.refreshControl?.endRefreshing()
-                self.refreshControl?.attributedTitle = NSAttributedString(string: "Pull to Refresh")
+                self.refreshControl!.endRefreshing()
+                self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to Refresh")
                 println("Loaded & set:Pull to Refresh")
             }
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.frame = Common.frame()
         self.initNav()
         sqlHelper = SqlHelper()
         self.initViews()
@@ -45,7 +47,7 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
         self.resultObjects = Array()
         self.initData()
         urlCu = ("","")
-        self.netWork("")
+        self.refreshing = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,7 +70,7 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
         searchField.font = UIFont.boldSystemFontOfSize(12)
         searchField.borderStyle = UITextBorderStyle.RoundedRect
         self.navigationItem.titleView = searchField
-        var rightBtn = UIBarButtonItem (barButtonSystemItem: UIBarButtonSystemItem.Add, target: nil, action: "add")
+        var rightBtn = UIBarButtonItem (barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: Selector("add"))
         self.navigationItem.rightBarButtonItem = rightBtn
         //self.navigationController!.hidesBarsOnSwipe = true;
     }
@@ -82,7 +84,7 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
         panGesture.maximumNumberOfTouches = 1;
         self.view.addGestureRecognizer(panGesture)
         // 创建tableView
-        tableView = UITableView(frame: CGRectMake(0, 0, Common.screenWidth, Common.screenHeight))
+        tableView = UITableView(frame: CGRectMake(0, 64, Common.screenWidth, Common.screenHeight))
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -90,7 +92,7 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
         self.view.addSubview(tableView)
         //添加下拉刷新 上拉加载
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: Selector("onPullToRefresh"), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl!)
         self.setupInfiniteScrollingView()
         
@@ -104,7 +106,7 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
     }
     
     func netWork (str: String) {
-        self.refreshing = false
+        
         self.loadMoreEnabled = false
         //请求测试
         ApiManager.sharedInstance.mindAll(str, andClosure: { (result) -> () in
@@ -122,7 +124,7 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
             self.convertToModel(result["objects"] as! [NSDictionary])
             //更新缓存
             self.sqlHelper.insertAll(self.dictModel)
-            self.refreshing = true
+            self.refreshing = false
             self.loadMoreEnabled = true
             }) { (error) -> () in
                 println(error)
@@ -133,13 +135,17 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
 
     
     func add() {
+        //模态方式弹出登录
+        var login = LoginViewController()
+        login.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        self.presentViewController(login, animated: true, completion: nil)
         //判断登录状态
-        if UserModel.isLogin() {
-        
-        }else{
-            
-            
-        }
+//        if UserModel.isLogin() {
+//        
+//        }else{
+//            
+//            
+//        }
         
     }
     
@@ -205,13 +211,21 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
         var cell = self.tableView(tableView, cellForRowAtIndexPath: indexPath)
         return cell.frame.height + 15.0;
     }
-        // tableView Delegate
+    // tableView Delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        var vote = VoteViewController()
-//        SideViewController().removeFromParentViewController()
-        self.navigationController!.pushViewController(vote, animated: true)
+        var dic = self.resultObjects[indexPath.section][indexPath.row]
+        if dic.is_auto_refresh == 0 {
+            var web = WebViewController()
+            web.urlStr = "https://www.jandi.com/main/?utm_source=mindstore.io#/"
+            self.navigationController!.pushViewController(web, animated: true)
+        }else{
+            var vote = VoteViewController()
+            self.navigationController!.pushViewController(vote, animated: true)
+        }
+        
     }
+    
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.frame.size.height {
             self.loadMore()
@@ -240,25 +254,29 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate,UITableVi
     }
     // 转换为二维数组，按天来划分
     func convertArray (dict: [MindModel]) {
-        var arrayTemp: [MindModel] = Array()
-        arrayTemp.append(dict.first!)
-        var dicta: MindModel = arrayTemp[0]
-        var timeTemp: String = dicta.created_at.description
-        for var i = 1; i<dict.count; i++ {
-            var json: MindModel = dict[i]
-            if (DateHelper().isSameDay(timeTemp, stamp2: json.created_at.description)) { //判断是否为同一天
-                arrayTemp.append(json)
-            }else{
-                self.resultObjects.append(arrayTemp)
-                arrayTemp = Array()
-                arrayTemp.append(json)
-                timeTemp = json.created_at.description
-            }
-            if i == dict.count-1 {
-                self.resultObjects.append(arrayTemp)
-            }
-        }
-        self.tableView.reloadData()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0) , { () -> Void in
+                var arrayTemp: [MindModel] = Array()
+                arrayTemp.append(dict.first!)
+                var dicta: MindModel = arrayTemp[0]
+                var timeTemp: String = dicta.created_at.description
+                for var i = 1; i<dict.count; i++ {
+                    var json: MindModel = dict[i]
+                    if (DateHelper().isSameDay(timeTemp, stamp2: json.created_at.description)) { //判断是否为同一天
+                        arrayTemp.append(json)
+                    }else{
+                        self.resultObjects.append(arrayTemp)
+                        arrayTemp = Array()
+                        arrayTemp.append(json)
+                        timeTemp = json.created_at.description
+                    }
+                    if i == dict.count-1 {
+                        self.resultObjects.append(arrayTemp)
+                    }
+                }
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.tableView.reloadData()
+                })
+        })
     }
     func convertToModel(dict: [NSDictionary]) {
         self.dictModel = Array()

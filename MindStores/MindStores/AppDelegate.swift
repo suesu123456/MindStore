@@ -19,9 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.backgroundColor = UIColor.clearColor()
         self.window!.makeKeyAndVisible()
         //自定义导航栏
-        var rootView:SideViewController = SideViewController()
+//        var rootView:SideViewController = SideViewController()
 //        let nav = UINavigationController(rootViewController: rootView)
-        self.window!.rootViewController = rootView
+        var homeViewController = HomeViewController()
+        var homeNavigationController = UINavigationController(rootViewController: homeViewController)
+        self.window!.rootViewController = homeNavigationController
         // 全局设置 navigation bar 为透明
         var navigationBarAppearace = UINavigationBar.appearance()
         navigationBarAppearace.backgroundColor = UIColor.whiteColor()

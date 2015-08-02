@@ -24,7 +24,7 @@ class IndexCell: UITableViewCell {
         //标题
         titleLabel = UILabel(frame: CGRectMake(15, 10, Common.screenWidth-100, 20))
         titleLabel.contentMode = UIViewContentMode.ScaleToFill
-        titleLabel.font = UIFont.boldSystemFontOfSize(13)
+        titleLabel.font = UIFont.boldSystemFontOfSize(14)
         //详情
         detailLabel =  UILabel(frame: CGRectMake(15, 30, Common.screenWidth-100, 30))
         detailLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping

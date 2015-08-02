@@ -25,10 +25,14 @@ class SideViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //initNav()
-        //给主视图设置背景
-        let imageView = UIImageView(image: UIImage(named: "back"))
-        imageView.frame = UIScreen.mainScreen().bounds
-        self.view.addSubview(imageView)
+        //渐变色
+        var gradient =  CAGradientLayer()
+        gradient.colors = [UIColor(hexString: "#3C5E94")!.CGColor, UIColor(hexString: "#000F40")!.CGColor, UIColor.blackColor().CGColor]
+        gradient.locations = [0.0, 1.0]
+        gradient.frame = self.view.bounds
+        self.view.layer.insertSublayer(gradient, atIndex: 0)
+        
+        
         //取出LeftViewController.view
         leftViewController = LeftViewController()
         leftViewController.view.center = CGPointMake(leftViewController.view.center.x - 50, leftViewController.view.center.y)
